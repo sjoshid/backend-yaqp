@@ -1,0 +1,45 @@
+{
+  "realm": "myrealm",
+  "auth-server-url": "http://localhost:8180",
+  "resource": "oculus",
+  "credentials": {
+    "secret": "GPUfk8CtiLEDbhVTXoEtKTNNW8lorlCn"
+  },
+  "paths": [
+    {
+      "path": "/auth/*",
+      "methods": [
+        {
+          "method": "GET",
+          "scopes": [
+            "urn:app.com:scopes:view"
+          ]
+        },
+        {
+          "method": "POST",
+          "scopes": [
+            "urn:app.com:scopes:create"
+          ]
+        }
+      ],
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/alerts",
+      "methods": [
+        {
+          "method": "GET",
+          "scopes": [
+            "urn:app.com:scopes:view"
+          ]
+        },
+        {
+          "method": "POST",
+          "scopes": [
+            "urn:app.com:scopes:create"
+          ]
+        }
+      ]
+    }
+  ]
+}
