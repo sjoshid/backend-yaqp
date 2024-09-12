@@ -3,9 +3,13 @@
   "auth-server-url": "http://localhost:8180",
   "resource": "oculus",
   "credentials": {
-    "secret": "GPUfk8CtiLEDbhVTXoEtKTNNW8lorlCn"
+    "secret": "qWrZTA3L4DELdpmEFQRwpoAv2PAk5to0"
   },
   "paths": [
+    {
+      "path": "/*",
+      "enforcement-mode": "DISABLED"
+    },
     {
       "path": "/auth/*",
       "methods": [

@@ -25,10 +25,6 @@ public class UserController {
   // @Service is rarely prototype. Having member variable logger is OK here.
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private final UserProfileService userProfileService;
-
-  private final OAuth2AuthorizedClientService authorizedClientService;
-
   // No CORS for this. This is only called when Keycloak auth is success.
   @GetMapping("/auth")
   public void auth(
