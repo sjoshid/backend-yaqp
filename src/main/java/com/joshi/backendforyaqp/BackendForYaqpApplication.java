@@ -8,7 +8,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 public class BackendForYaqpApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(BackendForYaqpApplication.class, args);
+  public static void main(String[] args) {SpringApplication.run(BackendForYaqpApplication.class, args);
   }
 }

@@ -2,35 +2,38 @@ package com.joshi.backendforyaqp.controller.metrics;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joshi.backendforyaqp.pojo.Data;
+import com.joshi.backendforyaqp.pojo.InOutMetricResponse;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 public class MetricsController {
-    @GetMapping("/metrics/inout")
-    public String inOutKbps(@RequestParam("routerID") String routerId)
+    @GetMapping(value = "/metrics/inout")
+    public List<InOutMetricResponse> inOutKbps(@RequestParam("id") String routerId)
             throws JsonProcessingException {
-        var res = "";
-        if (routerId.equals("xyz")) {
-            Map.Entry<String, List<Double>> e1 = Map.entry("maxIn", List.of(1., 2., 3., 4., 4.5));
-            Map.Entry<String, List<Double>> e2 = Map.entry("maxOut", List.of(1., 2., 3., 4., 4.5));
-            Map.Entry<String, List<Double>> e3 = Map.entry("avgIn", List.of(1., 2., 3., 4., 4.5));
-            Map.Entry<String, List<Double>> e4 = Map.entry("avgOut", List.of(1., 2., 3., 4., 4.5));
-            res = new ObjectMapper().writeValueAsString(Map.ofEntries(e1, e2, e3, e4));
-        } else if (routerId.equals("abc")) {
-            Map.Entry<String, List<Double>> e1 = Map.entry("maxIn", List.of(40., 50., 60., 70.));
-            Map.Entry<String, List<Double>> e2 = Map.entry("maxOut", List.of(40., 50., 60., 70.));
-            Map.Entry<String, List<Double>> e3 = Map.entry("avgIn", List.of(40., 50., 60., 70.));
-            Map.Entry<String, List<Double>> e4 = Map.entry("avgOut", List.of(40., 50., 60., 70.));
-            res = new ObjectMapper().writeValueAsString(Map.ofEntries(e1, e2, e3, e4));
-        }
+        Instant now = Instant.now();
+        Data d1 = new Data(now.plus(5, ChronoUnit.MINUTES), 10.);
+        Data d2 = new Data(now.plus(5, ChronoUnit.MINUTES), 20.);
+        Data d3 = new Data(now.plus(5, ChronoUnit.MINUTES), 30.);
+        Data d4 = new Data(now.plus(5, ChronoUnit.MINUTES), 40.);
 
-        return res;
+        List<Data> l = List.of(d1, d2, d3, d4);
+        List<List<Data>> ld = List.of(l);
+
+        InOutMetricResponse response1 = new InOutMetricResponse("Max In", "line", "Total", ld);
+        InOutMetricResponse response2 = new InOutMetricResponse("Max Out", "line", "Total", ld);
+        InOutMetricResponse response3 = new InOutMetricResponse("Avg In", "line", "Total", ld);
+        InOutMetricResponse response4 = new InOutMetricResponse("Avg Out", "line", "Total", ld);
+        return List.of(response1, response2, response3, response4);
     }
 
     @GetMapping("/ruptime")
